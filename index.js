@@ -29,7 +29,6 @@ app.listen(3000, () => {
 
 app.get("/", async (req, res) => {
   const sort = req.query.status;
-  console.log(sort);
   if (!sort) {
     const allCampaigns = await campaignModel.find().lean();
     res.render("home", { allCampaigns: allCampaigns });
