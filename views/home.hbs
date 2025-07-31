@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <title>Campaign Dashboard</title>
+    </head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/submit" class="submit-btn">✨ Submit New Campaign</a>
+            <h1 class="page-title">Campaigns</h1>
+            <p class="subtitle">Manage and monitor your marketing campaigns</p>
+        </div>
+        <div class="campaign-card" style="display : inline-block">Sort by &nbsp;
+            <a href="/" class="recipient-tag">All</a>
+            <a href="/?status=pending" class="recipient-tag">Pending</a>
+            <a href="/?status=success" class="recipient-tag">Success</a>
+            <a href="/?status=failed" class="recipient-tag">Failed</a>
+           </div>
+        <div class="campaigns-grid">
+       {{#each allCampaigns}}
+        <div class="campaign-card">
+          <h2 class="campaign-title">{{this.campaignName}}</h2>
+          <div class="recipients-section">
+              <h3 class="recipients-title">Recipients</h3>
+              {{#each this.recepients}}
+                <span class="recipient-tag">{{this}}</span>
+              {{/each}}
+          </div>
+          <div class="info-row delivery-time">
+              <span class="info-label">Delivery Time</span>
+              <span class="info-value">{{this.delivery}}</span>
+          </div>
+          <div class="info-row status-row">
+              <span class="info-label">Status</span>
+              <span class="status-badge status-{{this.status}}">{{this.status}}</span>
+          </div>
+        </div>
+      {{else}}
+        <div class="campaign-card">No campaigns found.</div>
+      {{/each}}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.campaign-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', ()=> {
+                    this.style.transform = 'translateY(-20px) scale(1.5)';
+                });
+                
+                card.addEventListener('mouseleave', ()=> {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

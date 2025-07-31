@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="submit.css">
+    <title>Submit New Campaign</title>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">Go back to home</a>
+        
+        <h1 class="page-title">Submit a New Campaign</h1>
+        
+        <div class="form-container">
+            <form action="http://localhost:3000/handle-submit" method="post">
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="campaignName">📝 Campaign Name</label>
+                        <input
+                            type="text"
+                            placeholder="Enter campaign name..."
+                            name="campaignName"
+                            id="campaignName"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="recipients-section">
+                    <div class="recipients-header">
+                        <h3 class="recipients-title">Recipients</h3>
+                        <button type="button" class="addRecepients">+</button>
+                    </div>
+                    
+                    <div class="inp-container">
+                        <div class="recipient-input-group">
+                            <label for="recipient">📧 Recipient Email Address</label>
+                            <input
+                                type="email"
+                                name="recepient[]"
+                                placeholder="Enter recipient's email..."
+                                id="recipient"
+                                required
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="mail">✉️ Email Message</label>
+                        <textarea
+                            name="mail"
+                            placeholder="Compose your email message here..."
+                            cols="30"
+                            rows="8"
+                            id="mail"
+                            required
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="delivery">⏰ Schedule Email Delivery</label>
+                        <input type="datetime-local" name="delivery" id="delivery" required />
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    🚀 Launch Campaign
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const addBtn = document.querySelector('.addRecepients');
+        const container = document.querySelector('.inp-container');
+        
+        addBtn.addEventListener('click', () => {
+            const newRecipientDiv = document.createElement('div');
+            newRecipientDiv.className = 'recipient-input-group new-recipient';
+            
+            newRecipientDiv.innerHTML = `
+                <label for="recipient">📧 Recipient Email Address</label>
+                <input
+                    type="email"
+                    name="recepient[]"
+                    placeholder="Enter recipient's email..."
+                    required
+                />
+            `;
+            
+            container.appendChild(newRecipientDiv);
+                      
+            // Focus on the new input
+            const newInput = newRecipientDiv.querySelector('input');
+            setTimeout(() => {
+                newInput.focus();
+            }, 300);
+        });
+
+        // Form submission animation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.innerHTML = '🚀 Launching...';
+            submitBtn.style.background = 'linear-gradient(45deg, #48bb78, #38a169)';
+        });
+
+        // Add floating effect to inputs
+        document.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Animate form sections on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.form-section');
+            sections.forEach((section, index) => {
+                section.style.animation = `fadeInUp 0.6s ease-out ${0.1 * index}s both`;
+            });
+        });
+    </script>
+</body>
+</html>
