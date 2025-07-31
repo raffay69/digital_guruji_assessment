@@ -5,7 +5,7 @@ A simple email campaign scheduler built using Node.js, Express, MongoDB, Handleb
 ## 📄 MongoDB Schema
 
 ```js
-// models/campaignModel.js
+// models/campaigns.model.js
 
 const campaignSchema = new Schema({
   campaignName: {
